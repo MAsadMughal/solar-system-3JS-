@@ -72,7 +72,7 @@ function CircularOrbit({ radius = 5 }) {
     }, []);
 
     return (
-        <group position={[0,0.5,0]}>
+        <group position={[0, 0.5, 0]}>
             <line geometry={orbitGeometry} material={orbitMaterial} />
         </group>
     );
@@ -106,31 +106,11 @@ export default function Three() {
     const lightref = useRef();
 
 
-    const updatePlanets = (time) => {
-        mercury.current.position.x = Math.sin(time) * 4;
-        mercury.current.position.z = Math.cos(time) * 4;
-        mercury.current.rotation.x = time;
-        venus.current.position.x = Math.sin(time) * 7;
-        venus.current.position.z = Math.cos(time) * 7;
-        venus.current.rotation.x = time;
-        earth.current.position.x = Math.sin(time) * 10;
-        earth.current.position.z = Math.cos(time) * 10;
-        earth.current.rotation.x = time;
-        mars.current.position.x = Math.sin(time) * 13;
-        mars.current.position.z = Math.cos(time) * 13;
-        mars.current.rotation.x = time;
-        jupiter.current.position.x = Math.sin(time) * 16;
-        jupiter.current.position.z = Math.cos(time) * 16;
-        jupiter.current.rotation.x = time;
-        saturn.current.position.x = Math.sin(time) * 19;
-        saturn.current.position.z = Math.cos(time) * 19;
-        saturn.current.rotation.x = time;
-        uranus.current.position.x = Math.sin(time) * 22;
-        uranus.current.position.z = Math.cos(time) * 22;
-        uranus.current.rotation.x = time;
-        neptune.current.position.x = Math.sin(time) * 25;
-        neptune.current.position.z = Math.cos(time) * 25;
-        neptune.current.rotation.x = time;
+    const updatePlanets = (time, ref2, multiple) => {
+        ref2.current.position.x = Math.sin(time) * multiple;
+        ref2.current.position.z = Math.cos(time) * multiple;
+        // mercury.current.rotation.x = time+10;
+
     };
     // const updateLight = (time) => {
     //     lightref.current.position.x = Math.sin(time) * 4;
@@ -139,7 +119,14 @@ export default function Three() {
     // };
 
     useFrame(({ clock }) => {
-        updatePlanets(clock.getElapsedTime() * 1);
+        updatePlanets(clock.getElapsedTime() * 3, mercury, 4);
+        updatePlanets(clock.getElapsedTime() * 2, venus, 7);
+        updatePlanets(clock.getElapsedTime() * 1, earth, 10);
+        updatePlanets(clock.getElapsedTime() * 0.5, mars, 13);
+        updatePlanets(clock.getElapsedTime() * 0.5, jupiter, 16);
+        updatePlanets(clock.getElapsedTime() * 0.1, saturn, 19);
+        updatePlanets(clock.getElapsedTime() * 0.05, uranus, 22);
+        updatePlanets(clock.getElapsedTime() * 0.01, neptune, 25);
         // updateLight(clock.getElapsedTime() * 1);
     });
     return (
@@ -151,10 +138,13 @@ export default function Three() {
 
             {/* Ball */}
             <mesh position={[0, 0.5, 0]} castShadow>
-                <sphereGeometry args={[1, 32, 32]} />
+                <sphereGeometry args={[3, 32, 32]} />
                 <meshStandardMaterial color="yellow" />
+                <pointLight position={[5, 5, 5]} intensity={1} />
+                {/* <pointLight position={[-5, 5, 5]} intensity={1}/>
+                <pointLight position={[-5, -5, 5]} intensity={1}/> */}
+                <pointLight position={[-5, -5, -5]} intensity={1} />
             </mesh>
-
 
             {/* Floor
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
@@ -165,46 +155,46 @@ export default function Three() {
 
             {/* Mercury */}
             <mesh ref={mercury} position={[7, 0.5, 0]} >
-                <sphereGeometry args={[0.5, 32, 32]} />
-                <meshStandardMaterial color="white" />
+                <sphereGeometry args={[0.383, 32, 32]} />
+                <meshStandardMaterial color="#8C8C8C" />
             </mesh>
 
             {/* Venus */}
             <mesh ref={venus} position={[-5, 0.5, 0]} >
-                <sphereGeometry args={[0.5, 32, 32]} />
-                <meshStandardMaterial color="#f0f0f0" />
+                <sphereGeometry args={[.949, 32, 32]} />
+                <meshStandardMaterial color="#E5B454" />
             </mesh>
 
             {/* Earth */}
             <mesh ref={earth} position={[-12, 0.5, 0]} >
-                <sphereGeometry args={[0.5, 32, 32]} />
-                <meshStandardMaterial color="white" />
+                <sphereGeometry args={[1, 32, 32]} />
+                <meshStandardMaterial color="#4682B4" />
             </mesh>
 
             {/* Mars */}
             <mesh ref={mars} position={[-19, 0.5, 0]} >
-                <sphereGeometry args={[0.5, 32, 32]} />
-                <meshStandardMaterial color="white" />
+                <sphereGeometry args={[0.532, 32, 32]} />
+                <meshStandardMaterial color="#FF6347" />
             </mesh>
             {/* Jupiter */}
             <mesh ref={jupiter} position={[-26, 0.5, 0]} >
-                <sphereGeometry args={[0.5, 32, 32]} />
-                <meshStandardMaterial color="white" />
+                <sphereGeometry args={[1.5, 32, 32]} />
+                <meshStandardMaterial color="#D9AB6C" />
             </mesh>
             {/* saturn */}
             <mesh ref={saturn} position={[-33, 0.5, 0]} >
-                <sphereGeometry args={[0.5, 32, 32]} />
-                <meshStandardMaterial color="white" />
+                <sphereGeometry args={[1.4, 32, 32]} />
+                <meshStandardMaterial color="#DAA520" />
             </mesh>
             {/* uranus */}
             <mesh ref={uranus} position={[-40, 0.5, 0]} >
-                <sphereGeometry args={[0.5, 32, 32]} />
-                <meshStandardMaterial color="white" />
+                <sphereGeometry args={[1.25, 32, 32]} />
+                <meshStandardMaterial color="#98FB98" />
             </mesh>
             {/* naptune */}
             <mesh ref={neptune} position={[-47, 0.5, 0]} >
-                <sphereGeometry args={[0.5, 32, 32]} />
-                <meshStandardMaterial color="white" />
+                <sphereGeometry args={[1.15, 32, 32]} />
+                <meshStandardMaterial color="#003366" />
             </mesh>
 
 
