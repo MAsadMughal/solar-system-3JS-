@@ -26,9 +26,9 @@ function Scene() {
     const numStars = 1000;
     const stars = new Array(numStars).fill().map(() => ({
         position: new THREE.Vector3(
-            (Math.random() - 0.5) * 500,
-            (Math.random() - 0.5) * 500,
-            (Math.random() - 0.5) * 500
+            (Math.random() - 0.5) * 1000,
+            (Math.random() - 0.5) * 1000,
+            (Math.random() - 0.5) * 1000
         ),
         speed: Math.random() * 0.01 + 0.001
     }));
@@ -122,16 +122,16 @@ export default function Three() {
         updatePlanets(clock.getElapsedTime() * 3, mercury, 4);
         updatePlanets(clock.getElapsedTime() * 2, venus, 7);
         updatePlanets(clock.getElapsedTime() * 1, earth, 10);
-        updatePlanets(clock.getElapsedTime() * 0.5, mars, 13);
+        updatePlanets(clock.getElapsedTime() * 0.7, mars, 13);
         updatePlanets(clock.getElapsedTime() * 0.5, jupiter, 16);
-        updatePlanets(clock.getElapsedTime() * 0.1, saturn, 19);
-        updatePlanets(clock.getElapsedTime() * 0.05, uranus, 22);
-        updatePlanets(clock.getElapsedTime() * 0.01, neptune, 25);
+        updatePlanets(clock.getElapsedTime() * 0.3, saturn, 19);
+        updatePlanets(clock.getElapsedTime() * 0.1, uranus, 22);
+        updatePlanets(clock.getElapsedTime() * 0.05, neptune, 25);
         // updateLight(clock.getElapsedTime() * 1);
     });
     return (
         <>
-            <PerspectiveCamera makeDefault position={[0, 1, 5]} />
+            <PerspectiveCamera makeDefault position={[-80, 20, 5]} />
 
             {/* <OrbitControls ref={orbitControlsref} minPolarAngle={rad(60)} maxPolarAngle={rad(80)} /> */}
             <OrbitControls ref={orbitControlsref} />
